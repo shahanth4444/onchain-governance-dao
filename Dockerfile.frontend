@@ -1,0 +1,15 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY frontend/package*.json ./
+RUN npm ci
+
+# Copy source code (will be overridden by volume in docker-compose for dev)
+COPY frontend/ ./
+
+EXPOSE 3000
+
+# Use dev server for hot reloading and runtime configuration
+CMD ["npm", "run", "dev"]

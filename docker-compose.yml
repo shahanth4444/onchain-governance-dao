@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  hardhat-node:
+    build:
+      context: .
+      dockerfile: Dockerfile.hardhat
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./contracts:/app/contracts
+      - ./scripts:/app/scripts
+      # Share the frontend/contracts directory so deployed addresses are visible
+      - ./frontend/contracts:/app/frontend/contracts
+    networks:
+      - voting-network
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:8545" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # Use localhost for browser interactions, but container name for SSR if needed
+      # Note: Client-side calls usually go to localhost:8545 via MetaMask
+      - NEXT_PUBLIC_RPC_URL=http://localhost:8545
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      hardhat-node:
+        condition: service_healthy
+    networks:
+      - voting-network
+
+networks:
+  voting-network:
+    driver: bridge

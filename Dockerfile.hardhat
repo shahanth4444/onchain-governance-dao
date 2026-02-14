@@ -1,0 +1,16 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+# Grant execute permission to the startup script
+RUN chmod +x scripts/start-node.sh
+
+EXPOSE 8545
+
+# Use the startup script
+CMD ["./scripts/start-node.sh"]
