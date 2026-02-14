@@ -135,6 +135,23 @@ stateDiagram-v2
     Defeated --> [*]
 ```
 
+## Skills and Tools Used
+
+### Skills Used
+- **Smart Contract Development** (Solidity)
+- **Frontend Development** (React.js, Next.js)
+- **Blockchain Integration** (Wagmi, Ethers.js)
+- **DevOps & Containerization** (Docker)
+- **Testing & Quality Assurance** (Hardhat Chai)
+- **System Architecture Design**
+
+### Tools Used
+- **Languages**: Solidity, TypeScript, JavaScript
+- **Frameworks**: Hardhat, Next.js, Tailwind CSS
+- **Libraries**: OpenZeppelin Contracts, Wagmi, Viem, Ethers.js, Recharts, TanStack Query
+- **Infrastructure**: Docker, Docker Compose
+- **Tools**: Git, GitHub, Visual Studio Code
+
 ## Directory Structure
 
 ```
