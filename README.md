@@ -16,21 +16,21 @@ A robust, industrial-level decentralized governance platform built with Next.js,
 
 ```mermaid
 graph TD
-    User[User / Wallet] --> |Connects| Frontend[Next.js DApp]
-    Frontend --> |Reads/Writes| SmartContracts[On-Chain Governance]
+    User["User / Wallet"] --> |Connects| Frontend["Next.js DApp"]
+    Frontend --> |Reads/Writes| SmartContracts["On-Chain Governance"]
     
     subgraph "Smart Contracts"
-        GovToken[GovernanceToken (ERC20Votes)]
-        Governor[MyGovernor]
-        TimeLock[TimeLock Controller]
+        GovToken["GovernanceToken (ERC20Votes)"]
+        Governor["MyGovernor"]
+        TimeLock["TimeLock Controller"]
         
         Governor --> |Uses| GovToken
         Governor --> |Controls| TimeLock
     end
     
     subgraph "Docker Environment"
-        FrontendContainer[Frontend Container]
-        HardhatNode[Hardhat Node Container]
+        FrontendContainer["Frontend Container"]
+        HardhatNode["Hardhat Node Container"]
         
         FrontendContainer --> HardhatNode
     end
@@ -40,23 +40,23 @@ graph TD
 
 ```mermaid
 graph TD
-    User[User] -->|Connects Wallet| Frontend[Next.js Frontend]
-    Frontend -->|Reads/Writes| SmartContracts[Smart Contracts]
-    Frontend -->|Reads| Subgraph[The Graph / Events]
+    User[User] -->|Connects Wallet| Frontend["Next.js Frontend"]
+    Frontend -->|Reads/Writes| SmartContracts["Smart Contracts"]
+    Frontend -->|Reads| Subgraph["The Graph / Events"]
     
     subgraph "Smart Contracts (Hardhat Network)"
-        GovToken[GovernanceToken (ERC20Votes)]
-        Governor[MyGovernor (OpenZeppelin)]
-        TimeLock[TimeLock Controller]
+        GovToken["GovernanceToken (ERC20Votes)"]
+        Governor["MyGovernor (OpenZeppelin)"]
+        TimeLock["TimeLock Controller"]
         
         Governor -->|Controls| TimeLock
         GovToken -->|Voting Power| Governor
     end
 
     subgraph "Frontend Layer"
-        Next[Next.js App]
-        Wagmi[Wagmi/Viem Hooks]
-        Rainbow[Wallet Connection]
+        Next["Next.js App"]
+        Wagmi["Wagmi/Viem Hooks"]
+        Rainbow["Wallet Connection"]
     end
 ```
 
@@ -75,6 +75,10 @@ sequenceDiagram
     User->>Gov: CastVote(ProposalId, Support)
     Note over Gov: Voting Period (1 Week)
     
+    alt Proposal Passed
+        User->>Gov: Queue(ProposalId)
+        Note over Gov: Timelock Delay
+        User->>Gov: Execute(ProposalId)
     else Proposal Failed
         Note over Gov: Proposal Defeated
     end
@@ -85,23 +89,23 @@ sequenceDiagram
 ```mermaid
 graph LR
     subgraph Frontend Components
-        Wallet[WalletConnect]
-        Create[CreateProposal Form]
-        List[ProposalList]
-        Vote[Voting Interface]
+        Wallet["WalletConnect"]
+        Create["CreateProposal Form"]
+        List["ProposalList"]
+        Vote["Voting Interface"]
     end
 
     subgraph Smart Contract Functions
         subgraph GovernanceToken
-            Delegate[delegate()]
-            GetVotes[getVotes()]
+            Delegate["delegate()"]
+            GetVotes["getVotes()"]
         end
 
         subgraph MyGovernor
-            Propose[propose()]
-            CastVote[castVote/castVoteQuadratic()]
-            State[state()]
-            Quorum[quorum()]
+            Propose["propose()"]
+            CastVote["castVote/castVoteQuadratic()"]
+            State["state()"]
+            Quorum["quorum()"]
         end
     end
 
