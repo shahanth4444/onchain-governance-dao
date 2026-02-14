@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import WalletConnect from '@/components/WalletConnect';
+import dynamic from 'next/dynamic';
 import { useAccount, useWriteContract } from 'wagmi';
+
+const WalletConnect = dynamic(() => import('@/components/WalletConnect'), { ssr: false });
 import { useRouter } from 'next/router';
 import { GOVERNOR_ADDRESS, MyGovernorABI, GovernanceTokenABI, GOVERNANCE_TOKEN_ADDRESS } from '@/utils/contracts';
 import { parseEther } from 'viem';

@@ -1,7 +1,12 @@
 import Head from 'next/head';
-import WalletConnect from '@/components/WalletConnect';
 import ProposalList from '@/components/ProposalList';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const WalletConnect = dynamic(() => import('@/components/WalletConnect'), {
+    ssr: false,
+});
+
 import { useAccount } from 'wagmi';
 
 export default function Home() {
