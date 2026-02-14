@@ -75,10 +75,11 @@ sequenceDiagram
     User->>Gov: CastVote(ProposalId, Support)
     Note over Gov: Voting Period (1 Week)
     
-    alt Proposal Passed
-        User->>Gov: Queue(ProposalId)
-        Note over Gov: Timelock Delay
-        User->>Gov: Execute(ProposalId)
+    else Proposal Failed
+        Note over Gov: Proposal Defeated
+    end
+```
+
 ### Component Interaction
 
 ```mermaid
@@ -130,7 +131,27 @@ stateDiagram-v2
     Defeated --> [*]
 ```
 
-## Directory Structures
+## Directory Structure
+
+```
+Voting-Platform/
+├── contracts/              # Smart contracts
+│   ├── GovernanceToken.sol # ERC20Votes token
+│   └── MyGovernor.sol      # Governor logic
+├── frontend/               # Next.js Application
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── pages/          # Next.js pages
+│   │   └── utils/          # ABIs and helpers
+│   └── next.config.js      # Next.js config
+├── scripts/                # Deployment scripts
+│   └── deploy.ts           # Deploy to hardhat/sepolia
+├── test/                   # Hardhat tests
+├── docker-compose.yml      # Container orchestration
+├── Dockerfile.frontend     # Frontend container
+├── Dockerfile.hardhat      # Hardhat node container
+└── hardhat.config.ts       # Hardhat configuration
+```
 
 ## Prerequisites
 
