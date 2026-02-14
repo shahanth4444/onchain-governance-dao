@@ -1,0 +1,68 @@
+WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://v2.hardhat.org/nodejs-versions
+
+
+[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+
+
+  MyGovernor
+    Deployment
+      ✔ Should set the correct name
+      ✔ Should set the correct voting delay
+      ✔ Should set the correct voting period
+      ✔ Should set the correct proposal threshold
+      ✔ Should set the correct quorum
+    Proposal Creation
+      ✔ Should allow users with enough tokens to create proposals
+      ✔ Should reject proposals from users below threshold
+      ✔ Should emit ProposalCreated event with correct parameters
+    Proposal Lifecycle
+      ✔ Should start in Pending state
+      ✔ Should move to Active state after voting delay
+      ✔ Should reject votes during Pending state
+      ✔ Should accept votes during Active state
+      ✔ Should move to Succeeded state if quorum and majority reached (7092ms)
+      ✔ Should move to Defeated state if quorum not reached (7213ms)
+    Standard Voting (1T1V)
+      ✔ Should allow voting For
+      ✔ Should allow voting Against
+      ✔ Should allow voting Abstain
+      ✔ Should prevent double voting
+      ✔ Should use voting power from snapshot block
+    Quadratic Voting
+      ✔ Should allow quadratic voting with correct cost calculation
+      ✔ Should reject quadratic vote if insufficient voting power
+      1) Should allow multiple quadratic votes up to voting power limit
+      2) Should track tokens spent correctly
+
+
+  21 passing (15s)
+  2 failing
+
+  1) MyGovernor
+       Quadratic Voting
+         Should allow multiple quadratic votes up to voting power limit:
+     Error: VM Exception while processing transaction: reverted with custom error 'GovernorAlreadyCastVote("0x70997970C51812dc3A010C7d01b50e0d17dc79C8")'
+    at MyGovernor.state (@openzeppelin/contracts/governance/Governor.sol:154)
+    at MyGovernor.castVoteQuadratic (contracts/MyGovernor.sol:109)
+    at EdrProviderWrapper.request (node_modules/hardhat/src/internal/hardhat-network/provider/provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:185:18)
+    at send (node_modules/ethers/src.ts/contract/contract.ts:313:20)
+    at Proxy.castVoteQuadratic (node_modules/ethers/src.ts/contract/contract.ts:352:16)
+    at Context.<anonymous> (test/MyGovernor.test.js:325:13)
+  
+
+  2) MyGovernor
+       Quadratic Voting
+         Should track tokens spent correctly:
+     Error: VM Exception while processing transaction: reverted with custom error 'GovernorAlreadyCastVote("0x70997970C51812dc3A010C7d01b50e0d17dc79C8")'
+    at MyGovernor.state (@openzeppelin/contracts/governance/Governor.sol:154)
+    at MyGovernor.castVoteQuadratic (contracts/MyGovernor.sol:109)
+    at EdrProviderWrapper.request (node_modules/hardhat/src/internal/hardhat-network/provider/provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:185:18)
+    at send (node_modules/ethers/src.ts/contract/contract.ts:313:20)
+    at Proxy.castVoteQuadratic (node_modules/ethers/src.ts/contract/contract.ts:352:16)
+    at Context.<anonymous> (test/MyGovernor.test.js:334:13)
+  
+
+
+

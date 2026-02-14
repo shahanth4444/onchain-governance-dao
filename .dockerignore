@@ -1,0 +1,8 @@
+node_modules
+frontend/node_modules
+cache
+artifacts
+frontend/.next
+frontend/out
+.git
+.env
